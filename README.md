@@ -53,3 +53,4 @@ Details of components:
   inputHandled is an bit-field that fill-up with each input until resetInputQueue is called.
   
 Milestones:
+  (Saturday) March 12th 23h59, Beijing Time : "/README.md" should be completed, containing actuals Problems, Goals, User Story, Architecture, Details of Components, and Milestones.
