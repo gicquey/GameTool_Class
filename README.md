@@ -5,7 +5,7 @@ members:
   Youri Gicquel 15129062
   Eric Hu
   Thomas Martin 15129056
-  Axel De Sousa
+  Axel De Sousa 15129087
   Nicolas Montredon 15129055
 
 Exercise Week 1: Develop a ubiquitous communication framework
