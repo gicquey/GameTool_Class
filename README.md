@@ -25,32 +25,41 @@ User Story:
 Architecture:
   Device Input -> Framework computation -> Framework output -> game
 
-  Class InputManager
-  {
-      enum inputMeaning
-      {
-        XXX,
-        YYY,
-        ZZZ
-      };
-      
-      function getInput(float timeout, int id)
-      function resetInputQueue()
-      function getInputStored()
-      
-      Devices[] devicesType
-      int[] deviceId
-      inputMeaning inputHandled
-   }   
+  typedef enum
+{
+	NONE,
+	RIGHT_CLICK,
+	LEFT_CLICK,
+	QUIT
+} input;
+
+class inputManager
+{
+public:
+	inputManager();
+	~inputManager();
+	input getInput();
+	void reinit();
+	void getMousePos(int*, int*);
+	bool getEventHappened();
+
+private:
+	SDL_Event e;
+	bool eventHappened = false;
+	int input;
+	int mouseX = -1;
+	int mouseY = -1;
+};
 
 Details of components:
-  inputMeaning is an array where every input used in the game is paired to an int value.
-  getInput() is the entry function, it will wait "timeout" millisecond for an input from the controller "id".
-  resetInputQueue() is a fonction that set "inputHandled" to NONE.
-  getInputStored() send "inputHandled" to the game.
-  devicesType is an array of the devices supported by the tool
-  deviceId pair an id to the corresponding "devicesType"
-  inputHandled is an bit-field that fill-up with each input until resetInputQueue is called.
+  input is an enum where every input used in the game is paired to an int value.
+  getInput() is the entry function, it will get an input.
+  reinit() is a fonction that set "inputHandled" to NONE.
+  getMousePos() store the position x/y of the cursor on the screen.
+  getEventHappened() check if an event was triggered.
+  e is a structure which handle events known by the SDL.
+  input is the varible that store the last input of the user.
+  mouseX/mouseY save the position of the mouse.
   
 Milestones:
   (Saturday) March 12th 23h59, Beijing Time : "/README.md" should be completed, containing actuals Problems, Goals, User Story, Architecture, Details of Components, and Milestones.
