@@ -25,11 +25,14 @@ User Story:
 Architecture:
   Device Input -> Framework computation -> Framework output -> game
 
-  Class InputManager:
-      enum inputMeaning:
+  Class InputManager
+  {
+      enum inputMeaning
+      {
         XXX,
         YYY,
         ZZZ
+      };
       
       function getInput(float timeout, int id)
       function resetInputQueue()
@@ -38,7 +41,7 @@ Architecture:
       Devices[] devicesType
       int[] deviceId
       inputMeaning inputHandled
-      
+   }   
 
 Details of components:
   inputMeaning is an array where every input used in the game is paired to an int value.
