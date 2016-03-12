@@ -3,7 +3,7 @@ Repository created to store productions during the class of game tool developmen
 
 members:
   Youri Gicquel 15129062
-  Eric Hu
+  Eric Hu 15129035
   Thomas Martin 15129056
   Axel De Sousa 15129087
   Nicolas Montredon 15129055
