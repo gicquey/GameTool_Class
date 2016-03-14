@@ -6,6 +6,9 @@ var GameInstance = require('./game');
 
 var AdminController = module.exports;
 
+/**
+ * Get All Answers
+ */
 AdminController.getAnswers = function (req, res)
 {
 	var answers = GameInstance.answers;
@@ -17,6 +20,9 @@ AdminController.getAnswers = function (req, res)
 		});
 };
 
+/**
+ * Get Current Answer
+ */
 AdminController.getCurrentAnswer = function (req, res)
 {
 	var currentAnswer = GameInstance.currentAnswer;
@@ -28,6 +34,11 @@ AdminController.getCurrentAnswer = function (req, res)
 		});
 };
 
+/**
+ * Add a new Answer to the Array
+ * Randomly choose another one
+ * InstanceID set to another value
+ */
 AdminController.addAnswer = function (req, res)
 {
 	var newNumber = Number(req.params.number);
@@ -59,6 +70,10 @@ AdminController.addAnswer = function (req, res)
 	}
 };
 
+/**
+ * Change Current Answer
+ * InstanceID set to another value
+ */
 AdminController.randomize = function (req, res)
 {
 	GameInstance.currentAnswer = GameInstance.getRandomAnswer();

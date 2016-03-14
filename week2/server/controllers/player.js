@@ -3,9 +3,11 @@
  */
 
 var GameInstance = require('./game');
-
 var PlayerController = module.exports;
 
+/**
+ * Compare Player Answer and Server Answer
+ */
 PlayerController.compareAnswer = function (req, res)
 {
 	var playerNumber = Number(req.params.number);

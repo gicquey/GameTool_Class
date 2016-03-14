@@ -33,12 +33,7 @@ var router = express.Router();
 router.use(
 	function(req, res, next)
 	{
-		console.log('Request URL:', req.originalUrl);
-		next();
-	},
-	function (req, res, next)
-	{
-		console.log('Request Type:', req.method);
+		console.log('Request Type:', req.method,'| URL:', req.originalUrl);
 		next();
 	});
 
@@ -58,25 +53,44 @@ app.use('/api', router);
 
 var GameController = require('./controllers/game');
 
+/**
+ * Get Instance ID
+ * Used to verify current Instance state
+ */
 router.route('/game/update')
       .get(GameController.getUpdate);
 
 // === Player Routes ===
 var PlayerController = require('./controllers/player');
 
+/**
+ * Check Player Answer with Server Answer
+ */
 router.route('/game/player/answers/:number')
       .get(PlayerController.compareAnswer);
 
 // === Admin Routes ===
 var  AdminController = require('./controllers/admin');
 
+/**
+ * General Answers related request
+ * GET: Get all answers
+ * PUT: Randomly choose another correct answer
+ */
 router.route('/game/admin/answers')
       .get(AdminController.getAnswers)
       .put(AdminController.randomize);
 
+/**
+ * Get Current Good Answer
+ */
 router.route('/game/admin/answers/current')
       .get(AdminController.getCurrentAnswer);
 
+/**
+ * Add a new Answer to the array of Answers
+ * And randomly choose another one
+ */
 router.route('/game/admin/answers/:number')
       .post(AdminController.addAnswer);
 
