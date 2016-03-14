@@ -1,31 +1,37 @@
 # GameTool_Class
-Repository created to store productions during the class of game tool development at BJTU
+*Repository created to store productions during the class of game tool development at BJTU*
 
-members:
-  Youri Gicquel 15129062
-  Eric Hu 15129035
-  Thomas Martin 15129056
-  Axel De Sousa 15129087
-  Nicolas Montredon 15129055
+## Members:
 
-Exercise Week 1: Develop a ubiquitous communication framework
+  - Youri Gicquel 15129062
+  - Eric Hu 15129035
+  - Thomas Martin 15129056
+  - Axel De Sousa 15129087
+  - Nicolas Montredon 15129055
 
-Problems:
-  The video game industry has to handle more and more different devices over the last years. For a same game, depending of the platform, a developper team can have to struggle with controllers, keyboard, mouse, touchpad... In this case, a tool which can get all of those input and just send a message to the game describing what action is needed for those input is a necessity.
+## Week 1: Develop a ubiquitous communication framework
+
+###  Problems:
+
+*The video game industry has to handle more and more different devices over the last years. For a same game, depending of the platform, a developper team can have to struggle with controllers, keyboard, mouse, touchpad... In this case, a tool which can get all of those input and just send a message to the game describing what action is needed for those input is a necessity.*
   
-Goals:
-  There are to big goals for this tool. The first is to be able to handle each required device input. The second is to associate the different inputs to one or more actions.
+### Goals:
+
+There are to big goals for this tool. The first is to be able to handle each required device input. The second is to associate the different inputs to one or more actions.
   
-User Story:
-  As a user, I want a tool easy to use.
-	As a user, I want a tool I can configure if needed.
-	As a user, I want to be able to easily add a new device.
-	As a user, I want to be able to choose if a device must be listened or not.
+### User Story:
 
-Architecture:
-  Device Input -> Framework computation -> Framework output -> game
+- As a user, I want a tool easy to use.
+- As a user, I want a tool I can configure if needed.
+- As a user, I want to be able to easily add a new device.
+- As a user, I want to be able to choose if a device must be listened or not.
 
-  typedef enum
+### Architecture:
+
+Device Input -> Framework computation -> Framework output -> Game
+
+```
+typedef enum
 {
 	NONE,
 	RIGHT_CLICK,
@@ -50,16 +56,17 @@ private:
 	int mouseX = -1;
 	int mouseY = -1;
 };
+```
+#### Details of components:
 
-Details of components:
-  input is an enum where every input used in the game is paired to an int value.
-  getInput() is the entry function, it will get an input.
-  reinit() is a fonction that set "inputHandled" to NONE.
-  getMousePos() store the position x/y of the cursor on the screen.
-  getEventHappened() check if an event was triggered.
-  e is a structure which handle events known by the SDL.
-  input is the varible that store the last input of the user.
-  mouseX/mouseY save the position of the mouse.
+- ``input`` is an enum where every input used in the game is paired to an int value.
+- ``getInput()`` is the entry function, it will get an input.
+- ``reinit()`` is a function that set "inputHandled" to NONE.
+- ``getMousePos()`` store the position x/y of the cursor on the screen.
+- ``getEventHappened()`` check if an event was triggered.
+- ``e`` is a structure which handle events known by the SDL.
+- ``input`` is the variable that store the last input of the user.
+- ``mouseX``/``mouseY`` save the position of the mouse.
   
-Milestones:
+### Milestones:
   (Saturday) March 12th 23h59, Beijing Time : "/README.md" should be completed, containing actuals Problems, Goals, User Story, Architecture, Details of Components, and Milestones.
