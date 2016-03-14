@@ -2,6 +2,16 @@
  * Created by Ninja on 14/03/2016.
  */
 
+Array.prototype.exist = function (id)
+{
+	for(var i = 0; i < this.length; i++)
+	{
+		if (this[i] === id)
+			return (true);
+	}
+	return (false);
+};
+
 var GameController = module.exports;
 
 var IDLength = 10;

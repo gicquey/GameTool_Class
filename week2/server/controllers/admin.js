@@ -32,18 +32,31 @@ AdminController.addAnswer = function (req, res)
 {
 	var newNumber = Number(req.params.number);
 
-	GameInstance.answers.push(newNumber);
-	GameInstance.currentAnswer = GameInstance.getRandomAnswer();
-	GameInstance.generateNewID();
+	if (!GameInstance.answers.exist(newNumber))
+	{
+		GameInstance.answers.push(newNumber);
+		GameInstance.currentAnswer = GameInstance.getRandomAnswer();
+		GameInstance.generateNewID();
 
-	res.status(200).json(
-		{
-			instanceID: GameInstance.instanceID,
-			addedNumber: newNumber,
-			currentAnswer: GameInstance.currentAnswer,
-			answers: GameInstance.answers,
-			message: 'New answer successfully added !'
-		});
+		res.status(200).json(
+			{
+				instanceID: GameInstance.instanceID,
+				addedNumber: newNumber,
+				currentAnswer: GameInstance.currentAnswer,
+				answers: GameInstance.answers,
+				message: 'New answer successfully added !'
+			});
+	}
+	else
+	{
+		res.status(422).json(
+			{
+				instanceID: GameInstance.instanceID,
+				currentAnswer: GameInstance.currentAnswer,
+				answers: GameInstance.answers,
+				message: 'Already added !'
+			});
+	}
 };
 
 AdminController.randomize = function (req, res)
