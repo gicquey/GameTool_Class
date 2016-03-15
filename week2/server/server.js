@@ -92,7 +92,8 @@ router.route('/game/admin/answers/current')
  * And randomly choose another one
  */
 router.route('/game/admin/answers/:number')
-      .post(AdminController.addAnswer);
+      .post(AdminController.addAnswer)
+      .delete(AdminController.removeAnswer);
 
 //
 // START THE SERVER

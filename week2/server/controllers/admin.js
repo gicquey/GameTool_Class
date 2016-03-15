@@ -71,6 +71,36 @@ AdminController.addAnswer = function (req, res)
 };
 
 /**
+ * Remove an Answer from the list of possibility
+ */
+AdminController.removeAnswer= function (req, res)
+{
+	var wantToBeRemovedAnswer = Number(req.params.number);
+
+	// Successfully removed
+	if (GameInstance.answers.removeItem(wantToBeRemovedAnswer))
+	{
+		GameInstance.generateNewID();
+
+		res.status(200).json(
+			{
+				instanceID: GameInstance.instanceID,
+				removedAnswer: wantToBeRemovedAnswer,
+				answers: GameInstance.answers,
+				message: 'Successfully removed !'
+			});
+	}
+	else // Failed to remove
+		res.status(422).json(
+			{
+				instanceID: GameInstance.instanceID,
+				answerToBeRemoved: wantToBeRemovedAnswer,
+				answers: GameInstance.answers,
+				message: 'Failed to remove !'
+			});
+};
+
+/**
  * Change Current Answer
  * InstanceID set to another value
  */
