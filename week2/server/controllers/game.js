@@ -28,6 +28,24 @@ Array.prototype.exist = function (value)
 };
 
 /**
+ * Remove @item from the array
+ * @param item
+ * @returns {boolean}
+ */
+Array.prototype.removeItem = function (item)
+{
+	for(var i = 0; i < this.length; i++)
+	{
+		if (this[i] === item)
+		{
+			this.splice(i, 1);
+			return (true);
+		}
+	}
+	return (false);
+};
+
+/**
  * Generate a Random ID given the length IDLength
  * @returns {number}
  */
