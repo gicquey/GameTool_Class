@@ -9,64 +9,39 @@
   - Axel De Sousa 15129087
   - Nicolas Montredon 15129055
 
-## Week 1: Develop a ubiquitous communication framework
+## Week 2: Create a game editor
 
 ###  Problems:
 
-*The video game industry has to handle more and more different devices over the last years. For a same game, depending of the platform, a developper team can have to struggle with controllers, keyboard, mouse, touchpad... In this case, a tool which can get all of those input and just send a message to the game describing what action is needed for those input is a necessity.*
+*Online game ship features 7x24 can't afford down time.
+Games span multiple devices.*
   
 ### Goals:
 
-There are to big goals for this tool. The first is to be able to handle each required device input. The second is to associate the different inputs to one or more actions.
+Create a game editor which can work while the game is running. Make it cross-platform.
+#### Implicit challenges:
+	- Operator push changes to the server
+	- Game clients get change from the server
+	- The server won't get down when deploying new binaries
+	- Support multiple platform
   
 ### User Story:
 
-- As a user, I want a tool easy to use.
-- As a user, I want a tool I can configure if needed.
-- As a user, I want to be able to easily add a new device.
-- As a user, I want to be able to choose if a device must be listened or not.
+- Game operator add a number to the list of numbers to guess.
+- Player can choose a number to guess.
+- Game operator can delete a number from the list.
 
 ### Architecture:
 
-Device Input -> Framework computation -> Framework output -> Game
+	Coder -> server
+	server <-> clients
+	storage -> server
+	editor <-> storage
+	Operator -> server
 
-```
-typedef enum
-{
-	NONE,
-	RIGHT_CLICK,
-	LEFT_CLICK,
-	QUIT
-} input;
-
-class inputManager
-{
-public:
-	inputManager();
-	~inputManager();
-	input getInput();
-	void reinit();
-	void getMousePos(int*, int*);
-	bool getEventHappened();
-
-private:
-	SDL_Event e;
-	bool eventHappened = false;
-	int input;
-	int mouseX = -1;
-	int mouseY = -1;
-};
-```
 #### Details of components:
 
-- ``input`` is an enum where every input used in the game is paired to an int value.
-- ``getInput()`` is the entry function, it will get an input.
-- ``reinit()`` is a function that set "inputHandled" to NONE.
-- ``getMousePos()`` store the position x/y of the cursor on the screen.
-- ``getEventHappened()`` check if an event was triggered.
-- ``e`` is a structure which handle events known by the SDL.
-- ``input`` is the variable that store the last input of the user.
-- ``mouseX``/``mouseY`` save the position of the mouse.
   
 ### Milestones:
-  (Saturday) March 12th 23h59, Beijing Time : "/README.md" should be completed, containing actuals Problems, Goals, User Story, Architecture, Details of Components, and Milestones.
+  (Tuesday) March 15th: Server + Player + Operator on pc should be completed.
+  (Saturday) March 19th 23h59, Beijing Time : "/README.md" should be completed, containing actuals Problems, Goals, User Story, Architecture, Details of Components, and Milestones.
