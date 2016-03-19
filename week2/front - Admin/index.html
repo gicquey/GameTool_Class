@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			Guess 101
+		</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+	    <script src="libs/angular.min.js"></script>
+	    <script src="app/app.js"></script>
+	</head>
+	<body ng-app="Guess">
+		<div class="jumbotron row" ng-controller="basicController">
+			<p> {{ message }} </p>
+
+			<form ng-submit="AddNumber(inputs)">
+				<input ng-model="inputs" placeholder="Add a number here" type="number"></input>			
+			</form>
+
+			<br/>
+
+			<form>
+				<button ng-click="getValues()">Get all possible values</button>
+				<span> {{ answers }} </span>
+			</form>
+
+			<br/>
+
+			<form>
+				<button ng-click="getValue()">Get current value</button>
+				<span> {{ answer }} </span>
+			</form>
+
+			<br/>
+
+			<button ng-click="changeValue()">Change current value</button>
+
+			<br/>
+
+			<p> {{ instanceID }} </p>
+ 		</div>
+	</body>
+</html>

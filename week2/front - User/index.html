@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			Guess 101
+		</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+	    <script src="libs/angular.min.js"></script>
+	    <script src="app/app.js"></script>
+	</head>
+	<body ng-app="Guess">
+		<div class="jumbotron row" ng-controller="basicController">
+			<span> {{ message }} </span>
+
+			<form ng-submit="CheckAnswer(inputs)">
+				<input ng-model="inputs" placeholder="Enter your number then hit enter :)"></input>			
+			</form>
+ 		</div>
+	</body>
+</html>
