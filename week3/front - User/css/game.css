@@ -1,8 +1,29 @@
 .game {
-	font-family: "courier";
+	display: flex;
 }
 
 textarea {
 	font-family: "courier";
 	line-height: normal;
+}
+
+
+/* grid */
+.wrapper {
+    width: auto;
+    margin: 0;
+    line-height: 20px;
+}
+.gameboard {
+    width: 420px;
+    height: auto;
+}
+.gameboard div {
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.middle img {
+    width: 20px;
 }

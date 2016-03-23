@@ -5,10 +5,29 @@ var Guess = angular.module('Guess', ['GuessController']);
 var GuessController = angular.module('GuessController', []);
 
 GuessController.controller('basicController', ['$scope', '$http', function($scope, $http) {
-    var message = $scope.message = "Welcome to this game engine ! Write here your map and please end each line with a '\n'";
+    var message = $scope.message = "Welcome to this game engine !";
     var map = $scope.map = "";
     $scope.render = [];
     var indexes = [];
+
+    var path0 = "resources/0.png";
+    var path1 = "resources/1.png";
+
+    $scope.spriteMap = [];
+    for (var i = 0; i < 16 * 21; i++)
+    {
+        if (i < 21 || i % 21 == 0 || i % 21 == 20 || i >= 15*21)
+            $scope.spriteMap[i] = 1;
+        else
+            $scope.spriteMap[i] = 0;
+    }
+
+    $scope.mapEdit = function(block){
+        if ($scope.spriteMap[block] == 1)
+            $scope.spriteMap[block] = 0;
+        else
+            $scope.spriteMap[block] = 1;
+    }
 
     $scope.generate = function(input){
         $scope.render = [];
@@ -32,5 +51,16 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
             }
         }
         $scope.render.reverse();
+    }
+
+    function createArray(length) {
+        var arr = new Array(length || 0),
+            i = length;
+
+        if (arguments.length > 1) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            while(i--) arr[length-1 - i] = createArray.apply(this, args);
+        }
+        return arr;
     }
 }]);
