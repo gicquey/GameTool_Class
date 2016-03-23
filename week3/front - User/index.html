@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			Game engine
+		</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/game.css">
+	    <script src="libs/angular.min.js"></script>
+	    <script src="app/app.js"></script>
+	</head>
+	<body ng-app="Guess" ng-controller="basicController">
+		<div class="jumbotron row">
+			<span> {{ message }} </span>
+
+			<form class="mapEditor">
+				<textarea ng-model="map" placeholder="your map here. ex : #...#"></textarea>
+				<div class="btn btn-default" ng-click="generate(map)">Generate</div>
+			</form>
+
+			<div class="game">
+<!-- 				{{ map }}				 -->
+				<article ng-show="render.length">
+					<p>Hey ! :D</p>
+					{{ render }}
+					<p ng-repeat="ren in render">
+						{{ ren }}
+					</p>
+					{{ render[0] }}
+				</article>
+			</div>
+ 		</div>
+	</body>
+</html>
