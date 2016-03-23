@@ -10,8 +10,7 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     $scope.render = [];
     var indexes = [];
 
-    var path0 = "resources/0.png";
-    var path1 = "resources/1.png";
+    $scope.step = 1;
 
     $scope.spriteMap = [];
     for (var i = 0; i < 16 * 21; i++)
@@ -23,10 +22,17 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     }
 
     $scope.mapEdit = function(block){
-        if ($scope.spriteMap[block] == 1)
+        if ($scope.spriteMap[block] == $scope.step)
             $scope.spriteMap[block] = 0;
         else
-            $scope.spriteMap[block] = 1;
+            $scope.spriteMap[block] = $scope.step;
+    }
+
+    $scope.nextStep = function(){
+        $scope.step++;
+    }
+    $scope.prevStep = function(){
+        $scope.step--;
     }
 
     $scope.generate = function(input){

@@ -24,12 +24,15 @@
 		<div class="wrapper">
 			<div class="gameboard" ng-repeat="x in spriteMap track by $index">
 				<div class="middle" ng-click="mapEdit($index)">
-					<img ng-show="x" src="resources/black.png">
 					<img ng-show="!x" src="resources/white.png">
+					<img ng-show="x == 1" src="resources/black.png">
 				</div>
 			</div>
 		</div>
 		<br/>
+		<p>Step number {{step}}</p>
+		<div class="btn btn-default" ng-click="prevStep()"><-- Previous Step</div>
+		<div class="btn btn-default" ng-click="nextStep()">Next Step --></div>
 
 	</article>
 
