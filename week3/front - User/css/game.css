@@ -24,6 +24,9 @@ textarea {
     float: left;
 }
 
-.middle img {
+.middle {
+    width: 20px;
+}
+.middle img{
     width: 20px;
 }
