@@ -22,7 +22,7 @@
 
 	<article ng-show="spriteMap.length">
 		<div class="wrapper">
-			<div class="gameboard" ng-repeat="x in spriteMap track by $index">
+			<div class="gameboard" ng-repeat="x in spriteMap track by $index" ng-style="style(map.width)">
 				<div class="middle" ng-click="mapEdit($index)">
 					<img ng-show="!x" src="resources/white.png">
 					<img ng-show="x == 1" src="resources/black.png">
@@ -34,8 +34,16 @@
 		<p>Step number {{step}}</p>
 		<div class="btn btn-default" ng-click="prevStep()"><-- Previous Step</div>
 		<div class="btn btn-default" ng-click="nextStep()">Next Step --></div>
-
 	</article>
+
+<br/>
+
+	<form>
+		<h4>Reset and Change size</h4>
+		<input type="number" ng-model="map.width" placeholder="Width"></input>
+		<input type="number" ng-model="map.height" placeholder="Height"></input>
+		<div class="btn btn-default" ng-click="reset()">Reset map</div>
+	</form>
 
 </body>
 </html>

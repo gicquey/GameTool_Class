@@ -6,16 +6,19 @@ var GuessController = angular.module('GuessController', []);
 
 GuessController.controller('basicController', ['$scope', '$http', function($scope, $http) {
     var message = $scope.message = "Welcome to this game engine !";
-    var map = $scope.map = "";
-    $scope.render = [];
-    var indexes = [];
-
     $scope.step = 1;
 
+    $scope.map = [];
+    $scope.map.width = 21;
+    $scope.map.height = 16;
+
     $scope.spriteMap = [];
-    for (var i = 0; i < 16 * 21; i++)
+    for (var i = 0; i < $scope.map.height * $scope.map.width; i++)
     {
-        if (i < 21 || i % 21 == 0 || i % 21 == 20 || i >= 15*21)
+        // if (i < 21 || i % 21 == 0 || i % 21 == 20 || i >= 15*21)
+        if (i < $scope.map.width || i % $scope.map.width == 0
+            || i % $scope.map.width == ($scope.map.width-1)
+            || i >= ($scope.map.height-1) * ($scope.map.width))
             $scope.spriteMap[i] = 1;
         else
             $scope.spriteMap[i] = 0;
@@ -33,6 +36,19 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     }
     $scope.prevStep = function(){
         $scope.step--;
+    }
+    $scope.reset = function(){
+        $scope.spriteMap = [];
+        for (var i = 0; i < $scope.map.height * $scope.map.width; i++)
+        {
+            $scope.spriteMap[i] = 0;
+        }
+
+    }
+
+    $scope.style = function(value){
+        var ret = (value * 20) + "px";
+        return { "width": ret };
     }
 
     $scope.generate = function(input){
