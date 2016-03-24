@@ -12,6 +12,14 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     $scope.map.width = 21;
     $scope.map.height = 16;
 
+    $scope.input = [];
+    $scope.input.name = "";    
+    $scope.input.code = null;
+    $scope.input.num = null;
+    $scope.input.grav = false;
+
+    $scope.objects = [];
+
     $scope.spriteMap = [];
     for (var i = 0; i < $scope.map.height * $scope.map.width; i++)
     {
@@ -46,33 +54,71 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
 
     }
 
+    $scope.createType = function(name, num, grav){
+        $scope.objects.push({name: name, num: num, grav: grav});
+    }
+    $scope.deleteType = function(){
+        $scope.objects.pop();
+    }
+
+    $scope.assign = function(code, num){
+
+    //     window.onkeyup = function(e) {
+    // var key = e.keyCode ? e.keyCode : e.which;
+    
+    // if (key == 38) {
+    //     playerSpriteX += 10;
+    // }else if (key == 40) {
+    //     playerSpriteX -= 10;
+    //    }
+    }
+
     $scope.style = function(value){
         var ret = (value * 20) + "px";
         return { "width": ret };
     }
 
-    $scope.generate = function(input){
-        $scope.render = [];
-        indexes = [];
+    var getGravAttr = function(num){
+        var iterator = $scope.objects.keys();
 
-        var sub = input;
-
-        while (sub.lastIndexOf('\n') != -1)
+        while (iterator.done == false)
         {
-            indexes.push(sub.lastIndexOf('\n'));
-            sub = sub.slice(0, sub.lastIndexOf('\n'));
-        }
-        indexes.push(0);
-
-        if (indexes.length > 1)
-        {
-            for (var i = 1; i < indexes.length; i++)
+            iterator.next();
+            if (iterator.value.num == num)
             {
-                // alert(input.slice(indexes[i]+1, indexes[i-1]));
-                $scope.render.push(input.slice(indexes[i]+1, indexes[i-1]));
+                return (iterator.value.grav);
             }
         }
-        $scope.render.reverse();
+        return false;
+    }
+
+    var createAsset = function(grav)
+    {
+        alert("TODO");
+    }
+
+    var createWall = function() {
+        alert("WALL");
+    }
+
+    var createObject = function(num){
+        switch (num)
+        {
+            case 0:
+                break;
+            case 1:
+                createWall();
+                break;
+            default:
+                createAsset(getGravAttr(num));// + , script);
+                break;
+        }
+    }
+
+    $scope.generate = function(){
+        for (var i = $scope.spriteMap.length - 1; i >= 0; i--) {
+            createObject($scope.spriteMap[i]);
+        }
     }
 
     function createArray(length) {

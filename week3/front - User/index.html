@@ -9,41 +9,68 @@
 	<link rel="stylesheet" href="css/game.css">
 	<script src="libs/angular.min.js"></script>
 	<script src="app/app.js"></script>
+	<script src="app/keyboard.js"></script>
+	<script src="app/basicscripts.js"></script>
 </head>
-<body ng-app="Guess" ng-controller="basicController">
-	<div class="jumbotron row">
+<body ng-app="Guess" ng-controller="basicController" class="row">
+	<div class="jumbotron row col-md-6">
 		<span> {{ message }} </span>
-<!-- 
-		<form class="mapEditor">
-			<textarea ng-model="map" placeholder="your map here. ex : #...#"></textarea>
-			<div class="btn btn-default" ng-click="generate(map)">Generate</div>
-		</form>
-	</div> -->
 
-	<article ng-show="spriteMap.length">
-		<div class="wrapper">
-			<div class="gameboard" ng-repeat="x in spriteMap track by $index" ng-style="style(map.width)">
-				<div class="middle" ng-click="mapEdit($index)">
-					<img ng-show="!x" src="resources/white.png">
-					<img ng-show="x == 1" src="resources/black.png">
-					<div ng-show="x > 1">{{ x }}</div>
+		<article ng-show="spriteMap.length">
+			<div class="wrapper">
+				<div class="gameboard" ng-repeat="x in spriteMap track by $index" ng-style="style(map.width)">
+					<div class="middle" ng-click="mapEdit($index)">
+						<img ng-show="!x" src="resources/white.png">
+						<img ng-show="x == 1" src="resources/black.png">
+						<div ng-show="x > 1">{{ x }}</div>
+					</div>
 				</div>
 			</div>
+			<br/>
+			<p>Step number {{step}}</p>
+			<div class="btn btn-default" ng-click="prevStep()"><-- Previous Step</div>
+			<div class="btn btn-default" ng-click="nextStep()">Next Step --></div>
+		</article>
+	</div>
+
+	<div class="jumbotron row col-md-6">
+		<form>
+			<h4>Reset and Change size</h4>
+			<input type="number" ng-model="map.width" placeholder="Width"></input>
+			<input type="number" ng-model="map.height" placeholder="Height"></input>
+			<div class="btn btn-default" ng-click="reset()">Reset map</div>
+		</form>
+	</div>
+
+	<div class="jumbotron row col-md-6" ng-show="step > 1 || objects.length">
+		<p>Game Objects : Here we go !</p>
+		<form class="row">
+			<h4>Link </h4>
+			<div class="btn btn-default col-sm-4" ng-click="createType(input.name, step, input.grav)">Associate with step {{step}}</div>
+			<input class="col-sm-4" type="text" ng-model="input.name" placeholder="Object Name"></input>
+			<div class="col-sm-4 btn btn-default" >
+				<input type="checkbox" ng-model="input.grav" aria-label="Gravity">Gravity</input>
+			</div>
+		</form>
+		<div class="row" ng-show="objects.length" ng-repeat="obj in objects">
+			<div class="col-sm-4">{{obj.num}}</div>
+			<div class="col-sm-4">{{obj.name}}</div>
+			<div class="col-sm-4">{{obj.grav}}</div>
 		</div>
-		<br/>
-		<p>Step number {{step}}</p>
-		<div class="btn btn-default" ng-click="prevStep()"><-- Previous Step</div>
-		<div class="btn btn-default" ng-click="nextStep()">Next Step --></div>
-	</article>
+		<div class="col-sm-4 btn btn-default" ng-click="deleteType()">Delete last Object</div>
+	</div>
 
-<br/>
+	<div class="jumbotron row col-md-6" ng-show="objects.length">
+		<form>
+			<h4>Add a keyboard event listener</h4>
+			<input type="number" ng-model="input.code" placeholder="KeyCode"></input>
+			<input type="number" ng-model="input.num" placeholder="Script number"></input>
+			<div class="btn btn-default" ng-click="assign(input.code, input.num)">Associate</div>
+		</form>
+	</div>
 
-	<form>
-		<h4>Reset and Change size</h4>
-		<input type="number" ng-model="map.width" placeholder="Width"></input>
-		<input type="number" ng-model="map.height" placeholder="Height"></input>
-		<div class="btn btn-default" ng-click="reset()">Reset map</div>
-	</form>
-
+	<div class="jumbotron row col-md-6">
+		<div class="btn btn-default" ng-click="generate()">Generate (Read map, associate numbers with real objects, and add scipts, then trigger onStart(s) and launch = trigger update(s) et onHit(s) / onDestroy(s))</div>
+	</div>
 </body>
 </html>

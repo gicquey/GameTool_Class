@@ -8,6 +8,14 @@ textarea {
 }
 
 
+.row {
+    margin: 0 !important;
+}
+input {
+    line-height: 30px;
+}
+
+
 /* grid */
 .wrapper {
     width: auto;
