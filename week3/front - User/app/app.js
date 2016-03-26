@@ -4,7 +4,8 @@ var Guess = angular.module('Guess', ['GuessController']);
 
 var GuessController = angular.module('GuessController', []);
 
-GuessController.controller('basicController', ['$scope', '$http', function($scope, $http) {
+var app = function($scope, $http) {
+    basicScript();
     var message = $scope.message = "Welcome to this game engine !";
     $scope.step = 1;
 
@@ -16,9 +17,10 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     $scope.input.name = "";    
     $scope.input.code = null;
     $scope.input.num = null;
-    $scope.input.grav = false;
 
-    $scope.objects = [];
+    $scope.types = [];
+
+    var objects = [];
 
     $scope.spriteMap = [];
     for (var i = 0; i < $scope.map.height * $scope.map.width; i++)
@@ -31,6 +33,9 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
         else
             $scope.spriteMap[i] = 0;
     }
+
+    var frameMap = [];
+
 
     $scope.mapEdit = function(block){
         if ($scope.spriteMap[block] == $scope.step)
@@ -54,23 +59,14 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
 
     }
 
-    $scope.createType = function(name, num, grav){
-        $scope.objects.push({name: name, num: num, grav: grav});
+    $scope.createType = function(name, num){
+        $scope.types.push({name: name, num: num});
     }
     $scope.deleteType = function(){
-        $scope.objects.pop();
+        $scope.types.pop();
     }
 
     $scope.assign = function(code, num){
-
-    //     window.onkeyup = function(e) {
-    // var key = e.keyCode ? e.keyCode : e.which;
-    
-    // if (key == 38) {
-    //     playerSpriteX += 10;
-    // }else if (key == 40) {
-    //     playerSpriteX -= 10;
-    //    }
     }
 
     $scope.style = function(value){
@@ -79,46 +75,72 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
     }
 
     var getGravAttr = function(num){
-        var iterator = $scope.objects.keys();
+        var iterator = $scope.types.keys();
+        var i = iterator.next();
 
-        while (iterator.done == false)
+        while (i.done == false)
         {
-            iterator.next();
-            if (iterator.value.num == num)
+            if ($scope.types[i.value].num == num)
             {
-                return (iterator.value.grav);
+                return ($scope.types[i.value].grav);
             }
+            i = iterator.next();
         }
         return false;
     }
 
-    var createAsset = function(grav)
-    {
-        alert("TODO");
+    var createAsset = function(num, posx, posy){
+        // var grav = getGravAttr(num);
+        objects.push({type:num, pos:{x:posx, y:posy}, scripts:[], toDestroy:false});
     }
 
-    var createWall = function() {
-        alert("WALL");
+    var createWall = function(posx, posy){
+        objects.push({type:1, pos:{x:posx, y:posy}, scripts:[], toDestroy:false});
     }
 
-    var createObject = function(num){
+    var createObject = function(num, pos){
+        var x = parseInt(pos % $scope.map.width);
+        var y = parseInt(pos / $scope.map.width);
+
         switch (num)
         {
             case 0:
                 break;
             case 1:
-                createWall();
+                createWall(x, y);
                 break;
             default:
-                createAsset(getGravAttr(num));// + , script);
+                createAsset(num, x, y);// + , script);
                 break;
         }
     }
 
     $scope.generate = function(){
-        for (var i = $scope.spriteMap.length - 1; i >= 0; i--) {
-            createObject($scope.spriteMap[i]);
+        objects = [];
+        for (var i = 0; i < $scope.spriteMap.length; i++) {
+            createObject($scope.spriteMap[i], i);
         }
+
+        frameMap = $scope.spriteMap;
+
+        for (var i = objects.length - 1; i >= 0; i--) {
+            for (var s = objects[i].scripts.length - 1; s >= 0; s--) {
+                objects[i].scripts[s].update();
+            }
+
+            for (var s = objects[i].scripts.length - 1; s >= 0; s--) {
+                objects[i].scripts[s].onHit();
+            }
+                       
+            if (objects[i].onDestroy == true)
+            {
+                for (var s = objects[i].scripts.length - 1; s >= 0; s--) {
+                    objects[i].scripts[s].onDestroy();
+                }
+            }
+        }
+
+        $scope.spriteMap = frameMap;
     }
 
     function createArray(length) {
@@ -131,4 +153,6 @@ GuessController.controller('basicController', ['$scope', '$http', function($scop
         }
         return arr;
     }
-}]);
+}
+
+GuessController.controller('basicController', ['$scope', '$http', function($scope, $http) {app($scope, $http)}]);

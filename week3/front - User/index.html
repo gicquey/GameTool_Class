@@ -8,9 +8,11 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/game.css">
 	<script src="libs/angular.min.js"></script>
+  	<script src="app/basicscripts.js"></script>
 	<script src="app/app.js"></script>
-	<script src="app/keyboard.js"></script>
-	<script src="app/basicscripts.js"></script>
+<!-- 	<script src="app/keyboard.js"></script>
+ -->
+
 </head>
 <body ng-app="Guess" ng-controller="basicController" class="row">
 	<div class="jumbotron row col-md-6">
@@ -42,25 +44,22 @@
 		</form>
 	</div>
 
-	<div class="jumbotron row col-md-6" ng-show="step > 1 || objects.length">
+	<div class="jumbotron row col-md-6" ng-show="step > 1 || types.length">
 		<p>Game Objects : Here we go !</p>
 		<form class="row">
 			<h4>Link </h4>
-			<div class="btn btn-default col-sm-4" ng-click="createType(input.name, step, input.grav)">Associate with step {{step}}</div>
-			<input class="col-sm-4" type="text" ng-model="input.name" placeholder="Object Name"></input>
-			<div class="col-sm-4 btn btn-default" >
-				<input type="checkbox" ng-model="input.grav" aria-label="Gravity">Gravity</input>
-			</div>
+			<input class="col-sm-6" type="text" ng-model="input.name" placeholder="Object Name"></input>
+			<div class="btn btn-default col-sm-6" ng-click="createType(input.name, step)">Associate with step {{step}}</div>
 		</form>
-		<div class="row" ng-show="objects.length" ng-repeat="obj in objects">
-			<div class="col-sm-4">{{obj.num}}</div>
-			<div class="col-sm-4">{{obj.name}}</div>
-			<div class="col-sm-4">{{obj.grav}}</div>
+		<div class="row" ng-show="types.length" ng-repeat="obj in types">
+			<div class="col-sm-6">{{obj.name}}</div>
+			<div class="col-sm-6">{{obj.num}}</div>
 		</div>
 		<div class="col-sm-4 btn btn-default" ng-click="deleteType()">Delete last Object</div>
 	</div>
 
-	<div class="jumbotron row col-md-6" ng-show="objects.length">
+<!--
+ 	<div class="jumbotron row col-md-6" ng-show="types.length">
 		<form>
 			<h4>Add a keyboard event listener</h4>
 			<input type="number" ng-model="input.code" placeholder="KeyCode"></input>
@@ -68,6 +67,7 @@
 			<div class="btn btn-default" ng-click="assign(input.code, input.num)">Associate</div>
 		</form>
 	</div>
+ -->
 
 	<div class="jumbotron row col-md-6">
 		<div class="btn btn-default" ng-click="generate()">Generate (Read map, associate numbers with real objects, and add scipts, then trigger onStart(s) and launch = trigger update(s) et onHit(s) / onDestroy(s))</div>
