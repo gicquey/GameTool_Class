@@ -10,8 +10,6 @@
 	<script src="libs/angular.min.js"></script>
   	<script src="app/basicscripts.js"></script>
 	<script src="app/app.js"></script>
-<!-- 	<script src="app/keyboard.js"></script>
- -->
 
 </head>
 <body ng-app="Guess" ng-controller="basicController" class="row">
@@ -71,6 +69,7 @@
 
 	<div class="jumbotron row col-md-6">
 		<div class="btn btn-default" ng-click="generate()">Generate (Read map, associate numbers with real objects, and add scipts, then trigger onStart(s) and launch = trigger update(s) et onHit(s) / onDestroy(s))</div>
+		<div class="btn btn-default" ng-click="stop()">Stop the GameLoop</div>
 	</div>
 </body>
 </html>
