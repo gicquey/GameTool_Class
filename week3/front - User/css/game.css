@@ -36,4 +36,5 @@ input {
 }
 .middle img{
     width: 20px;
+    vertical-align: bottom;
 }

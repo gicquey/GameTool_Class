@@ -69,6 +69,14 @@ var app = function($scope, $http) {
         return { "width": ret };
     }
 
+    var getObjectAt = function(type, x, y){
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].pos.x == x && objects[i].pos.y == y && objects[i].type == type)
+                return objects[i];
+        }
+        return null;
+    }
+
     var getGravAttr = function(num){
         var iterator = $scope.types.keys();
         var i = iterator.next();
@@ -83,11 +91,7 @@ var app = function($scope, $http) {
     }
 
     var createAsset = function(num, posx, posy){
-        objects.push({type:num, pos:{x:posx, y:posy}, scripts:allScripts[num], toDestroy:false});
-    }
-
-    var createWall = function(posx, posy){
-        objects.push({type:1, pos:{x:posx, y:posy}, scripts:nullScripts, toDestroy:false});
+        objects.push({type:num, pos:{x:posx, y:posy}, scripts:allScripts[num], toDestroy:false, hits:{u:0, r:0, d:0, l:0}, getObjectAt:getObjectAt});
     }
 
     var createObject = function(num, pos){
@@ -96,9 +100,6 @@ var app = function($scope, $http) {
         switch (num)
         {
             case 0:
-                break;
-            case 1:
-                createWall(x, y);
                 break;
             default:
                 createAsset(num, x, y);// + , script);
@@ -122,7 +123,13 @@ var app = function($scope, $http) {
 
             $scope.$apply(function () {
                 for (i = 0; i < objects.length; i++) {
-                        $scope.spriteMap[objects[i].pos.x + objects[i].pos.y * $scope.map.width] = 0;
+                    objects[i].hits.u = $scope.spriteMap[objects[i].pos.x + (objects[i].pos.y-1) * $scope.map.width];
+                    objects[i].hits.r = $scope.spriteMap[objects[i].pos.x + 1 + objects[i].pos.y * $scope.map.width];
+                    objects[i].hits.d = $scope.spriteMap[objects[i].pos.x + (objects[i].pos.y+1) * $scope.map.width];
+                    objects[i].hits.l = $scope.spriteMap[objects[i].pos.x - 1 + objects[i].pos.y * $scope.map.width];
+                }
+                for (i = 0; i < objects.length; i++) {
+                    $scope.spriteMap[objects[i].pos.x + objects[i].pos.y * $scope.map.width] = 0;
                 }
                 for (i = 0; i < objects.length; i++) {
                     if (objects[i].scripts.update != null) {
@@ -140,7 +147,7 @@ var app = function($scope, $http) {
                 }
             });
         }
-        var intervalID = setInterval(gameLoop, 333);
+        var intervalID = setInterval(gameLoop, 200);
     }
 
     $scope.stop = function(){

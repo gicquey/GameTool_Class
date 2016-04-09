@@ -22,7 +22,9 @@
 					<div class="middle" ng-click="mapEdit($index)">
 						<img ng-show="!x" src="resources/white.png">
 						<img ng-show="x == 1" src="resources/black.png">
-						<div ng-show="x > 1">{{ x }}</div>
+						<img ng-show="x == 2" src="resources/plate.png">
+						<img ng-show="x == 3" src="resources/32.gif">
+						<div ng-show="x > 3">{{ x }}</div>
 					</div>
 				</div>
 			</div>
@@ -42,7 +44,7 @@
 		</form>
 	</div>
 
-	<div class="jumbotron row col-md-6" ng-show="step > 1 || types.length">
+	<div class="jumbotron row col-md-6" ng-show="types.length">
 		<p>Game Objects : Here we go !</p>
 		<form class="row">
 			<h4>Link </h4>
@@ -68,8 +70,8 @@
  -->
 
 	<div class="jumbotron row col-md-6">
-		<div class="btn btn-default" ng-click="generate()">Generate (Read map, associate numbers with real objects, and add scipts, then trigger onStart(s) and launch = trigger update(s) et onHit(s) / onDestroy(s))</div>
-		<div class="btn btn-default" ng-click="stop()">Stop the GameLoop</div>
-	</div>
+		<div class="btn btn-default" ng-click="generate()">Generate</div>
+<!-- 		<div class="btn btn-default" ng-click="stop()">Stop the GameLoop</div>
+ -->	</div>
 </body>
 </html>
