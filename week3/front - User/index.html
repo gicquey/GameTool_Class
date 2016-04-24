@@ -13,7 +13,7 @@
 
 </head>
 <body ng-app="Guess" ng-controller="basicController" class="row">
-	<div class="jumbotron row col-md-6">
+	<div class="jumbotron row col-md-12">
 		<span> {{ message }} </span>
 
 		<article ng-show="spriteMap.length">
@@ -22,8 +22,10 @@
 					<div class="middle" ng-click="mapEdit($index)">
 						<img ng-show="!x" src="resources/white.png">
 						<img ng-show="x == 1" src="resources/black.png">
-						<img ng-show="x == 2" src="resources/plate.png">
-						<img ng-show="x == 3" src="resources/32.gif">
+						<img ng-show="x == 2" src="resources/green.png">
+						<img ng-show="x == 3" src="resources/purple.png">
+						<img ng-show="x == 4" src="resources/key.png">
+						<img ng-show="x == 5" src="resources/door.png">
 						<div ng-show="x > 3">{{ x }}</div>
 					</div>
 				</div>
