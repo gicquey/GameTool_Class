@@ -9,8 +9,8 @@ var app = function($scope, $http) {
     $scope.step = 1;
 
     $scope.map = [];
-    $scope.map.width = 16;
-    $scope.map.height = 16;
+    $scope.map.width = 10;
+    $scope.map.height = 14;
 
     $scope.input = [];
     $scope.input.name = "";    
